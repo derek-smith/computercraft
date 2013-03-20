@@ -1,4 +1,4 @@
-local VERSION = "0.0.5" -- must be the first line!
+local VERSION = "0.0.6" -- must be the first line!
 
 -- app manager
 
