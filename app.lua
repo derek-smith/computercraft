@@ -196,7 +196,7 @@ local commands = {
             --local i,j = string.find(script, "%d.%d.%d+")
             --print(i.." "..j)
             
-            local v = string.match(script, "(%d.%d.%d+)")
+            local v = string.match(script, 'VERSION = "(%d.%d.%d+)"')
             print(v)
         end
     }
