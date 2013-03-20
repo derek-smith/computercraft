@@ -1,9 +1,9 @@
-local VERSION = "0.0.6" -- must be the first line!
-
 -- app manager
 
+local VERSION = "0.0.6"
+
 print()
-print("app v"..VERSION)
+print("app manager v"..VERSION)
 print()
 
 -- define functions
@@ -124,7 +124,12 @@ if fs.exists("/apps/manager") == false then
     fs.makeDir("/apps/manager")
 end
 
+if fs.exists("/apps/manager/bin") == false then
+    fs.makeDir("/apps/manager/bin") 
+end
+
 Path.add("/apps/bin")
+Path.add("/apps/bin/manager/app", 1)
 
 local commands = {
     test = {
@@ -190,14 +195,27 @@ local commands = {
             print("response: "..request.getResponseCode())
             print()
             
+            write("reading my new code... ")
             local script = request.readAll()
-            --Util.table.print(request)
+            print("awesome.")
+
+            local version = string.match(script, 'VERSION = "(%d.%d.%d+)"')
+            if version == VERSION then
+                print("i am up-to-date. nothing to do here...")
+                return
+            end
             
-            --local i,j = string.find(script, "%d.%d.%d+")
-            --print(i.." "..j)
+            write("saving me... ")
+            if fs.exists("/apps/manager/bin/app") then
+                fs.delete("/apps/manager/bin/app") 
+            end
+            local file = fs.open("/apps/manager/bin/app", "w")
+            file.write(script)
+            file.close()
             
-            local v = string.match(script, 'VERSION = "(%d.%d.%d+)"')
-            print(v)
+            print("yes.")
+            print()
+            print("nice, i updated successfully.")                        
         end
     }
 }
