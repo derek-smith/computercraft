@@ -142,7 +142,7 @@ local commands = {
         enabled = true,
         run = function(args)
             local name = Util.table.explode(args)
-            local url = "https://c9.io/derek-smith/cc/workspace/"..name..".lua"
+            local url = "https://raw.github.com/derek-smith/computercraft/master/"..name..".lua"
             print("downloading app from:")
             print(url)
             print()
@@ -177,7 +177,7 @@ local commands = {
         name = "update-self",
         enabled = true,
         run = function()
-            local url = "https://c9.io/derek-smith/cc/workspace/app.lua"
+            local url = "https://raw.github.com/derek-smith/computercraft/master/app.lua"
             print("updating myself from:")
             print(url)
             local request = http.get(url)
@@ -193,9 +193,11 @@ local commands = {
             local script = request.readAll()
             --Util.table.print(request)
             
-            local i,j = string.find(script, "%d.%d.%d+")
-            print(i.." "..j)
-
+            --local i,j = string.find(script, "%d.%d.%d+")
+            --print(i.." "..j)
+            
+            local v = string.match(script, "(%d.%d.%d+)")
+            print(v)
         end
     }
 }
