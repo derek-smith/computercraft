@@ -1,6 +1,6 @@
 -- app manager
 
-local VERSION = "0.0.6"
+local VERSION = "0.0.7"
 
 print()
 print("app manager v"..VERSION)
@@ -195,7 +195,7 @@ local commands = {
             print("response: "..request.getResponseCode())
             print()
             
-            write("reading my new code... ")
+            write("reading my code... ")
             local script = request.readAll()
             print("awesome.")
 
