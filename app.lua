@@ -138,7 +138,7 @@ local commands = {
         enabled = true,
         run = function(args)
             local name = Util.table.explode(args)
-            local url = stableRepo..name..".lua"
+            local url = debugRepo..name..".lua"
             print("downloading app from:")
             print(url)
             local request = http.get(url)
