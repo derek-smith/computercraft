@@ -1,10 +1,10 @@
 -- app manager
 
 local VERSION = "0.0.7"
-
-print()
 print("app manager v"..VERSION)
-print()
+
+local debugRepo = "https://c9.io/derek-smith/computercraft/workspace/"
+local stableRepo = "https://raw.github.com/derek-smith/computercraft/master/"
 
 -- define functions
 local Util = {
@@ -50,7 +50,7 @@ Util = {
     }
 }
 
--- define fun
+-- define functions
 local Path = {
     get = function() end,
     contains = function() end,
@@ -128,29 +128,19 @@ if fs.exists("/apps/manager/bin") == false then
     fs.makeDir("/apps/manager/bin") 
 end
 
+Path.add("/apps/bin/manager/app", 2)
 Path.add("/apps/bin")
-Path.add("/apps/bin/manager/app", 1)
+Path.print()
 
 local commands = {
-    test = {
-        name = "test",
-        enabled = true,
-        run = function(args)
-            local a1, a2, a3 = Util.table.explode(args)
-            print(a1)
-            print(a2)
-            print(a3)
-        end
-    },
     install = {
         name = "install",
         enabled = true,
         run = function(args)
             local name = Util.table.explode(args)
-            local url = "https://raw.github.com/derek-smith/computercraft/master/"..name..".lua"
+            local url = stableRepo..name..".lua"
             print("downloading app from:")
             print(url)
-            print()
             local request = http.get(url)
             
             if request == nil then
@@ -166,7 +156,6 @@ local commands = {
             file.write(script)
             file.close()
             print("done.")
-            print()
             print(name.." installed successfully.")            
         end
     },
@@ -174,7 +163,6 @@ local commands = {
         name = "add-repo",
         enabled = false,
         run = function()
-            print("addrepo func")
             return true
         end
     },
@@ -182,7 +170,7 @@ local commands = {
         name = "update-self",
         enabled = true,
         run = function()
-            local url = "https://raw.github.com/derek-smith/computercraft/master/app.lua"
+            local url = debugRepo.."app.lua"
             print("updating myself from:")
             print(url)
             local request = http.get(url)
